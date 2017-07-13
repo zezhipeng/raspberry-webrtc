@@ -4,5 +4,5 @@ var {resolve} = require('path')
 
 var file = fs.createWriteStream(resolve(__dirname, '/video.h264'))
 var video = raspivid()
-console.log('test')
+console.log('test2')
 video.pipe(file)
