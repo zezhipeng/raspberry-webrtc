@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "rashpberry-webrtc",
-      "script": "~/www/source/rashpberry-webrtc/index.js",
+      "script": "/home/pi/www/source/raspberry-webrtc/source/rashpberry-webrtc/index.js",
       "env": {
         "COMMON_VARIABLE": "true"
       },
@@ -18,8 +18,8 @@
       "port": "22",
       "ref": "origin master",
       "repo": "git@github.com:zezhipeng/raspberry-webrtc.git",
-      "path": "~/www",
-      "post-deploy": "yarn install && pm2 startOrRestart ~/www/source/rashpberry-webrtc/ecosystem.json",
+      "path": "/home/pi/www/source/raspberry-webrtc",
+      "post-deploy": "yarn install && pm2 startOrRestart /home/pi/www/source/raspberry-webrtc/source/rashpberry-webrtc/ecosystem.json",
       "env": {
         "NODE_ENV": "development"
       }
