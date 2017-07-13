@@ -19,7 +19,7 @@
       "ref": "origin/master",
       "repo": "git@github.com:zezhipeng/raspberry-webrtc.git",
       "path": "~/www/development",
-      "post-deploy": "yarn install && pm2 startOrRestart ~/www/development/source/index.js",
+      "post-deploy": "yarn install && pm2 startOrRestart ~/www/development/source/index.js --env dev",
       "env": {
         "NODE_ENV": "development"
       }
