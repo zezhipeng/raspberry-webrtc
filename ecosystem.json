@@ -12,7 +12,7 @@
     }
   ],
   "deploy": {
-    "production": {
+    "dev": {
       "user": "pi",
       "host": ["219.82.181.53"],
       "port": "22",
