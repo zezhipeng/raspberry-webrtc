@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "rashpberry-webrtc",
-      "script": "index.js",
+      "script": "~/www/development/source/index.js",
       "env": {
         "COMMON_VARIABLE": "true"
       },
@@ -19,7 +19,7 @@
       "ref": "origin/master",
       "repo": "git@github.com:zezhipeng/raspberry-webrtc.git",
       "path": "~/www/development",
-      "post-deploy": "yarn install && pm2 startOrRestart decosystem.json",
+      "post-deploy": "yarn install && pm2 startOrRestart ~/www/development/source/decosystem.json",
       "env": {
         "NODE_ENV": "development"
       }
