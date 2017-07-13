@@ -14,11 +14,11 @@
   "deploy": {
     "dev": {
       "user": "pi",
-      "host": ["219.82.181.53"],
+      "host": "219.82.181.53",
       "port": "22",
       "ref": "origin/master",
       "repo": "git@github.com:zezhipeng/raspberry-webrtc.git",
-      "path": "~/webrtc/raspberry-webrtc",
+      "path": "/webrtc/raspberry-webrtc",
       "ssh_options": "StrictHostKeyChecking=no",
       "post-deploy": "yarn install && pm2 startOrRestart ecosystem.json --env development",
       "env": {
