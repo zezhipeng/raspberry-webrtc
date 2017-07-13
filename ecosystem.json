@@ -18,8 +18,8 @@
       "port": "22",
       "ref": "origin master",
       "repo": "git@github.com:zezhipeng/raspberry-webrtc.git",
-      "path": "~/www",
-      "post-deploy": "yarn install && pm2 startOrRestart ecosystem.json",
+      "path": "~/www/development",
+      "post-deploy": "yarn install && pm2 startOrRestart index.js",
       "env": {
         "NODE_ENV": "development"
       }
