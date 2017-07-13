@@ -1,0 +1,29 @@
+{
+  "apps": [
+    {
+      "name": "rashpberry-webrtc",
+      "script": "start.js",
+      "env": {
+        "COMMON_VARIABLE": "true"
+      },
+      "env_production": {
+        "NODE_ENV": "production"
+      }
+    }
+  ],
+  "deploy": {
+    "production": {
+      "user": "pi",
+      "host": ["219.82.181.53"],
+      "port": "22",
+      "ref": "origin/master",
+      "repo": "git@git.oschina.net:wolf18387/got.git",
+      "path": "/www/icefire/production",
+      "ssh_options": "StrictHostKeyChecking=no",
+      "post-deploy": "yarn install && pm2 startOrRestart ecosystem.json --env dev",
+      "env": {
+        "NODE_ENV": "dev"
+      }
+    }
+  }
+}
