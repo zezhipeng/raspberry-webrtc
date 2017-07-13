@@ -16,7 +16,7 @@
       "user": "pi",
       "host": "219.82.181.53",
       "port": "22",
-      "ref": "origin master",
+      "ref": "origin/master",
       "repo": "git@github.com:zezhipeng/raspberry-webrtc.git",
       "path": "~/www/development",
       "post-deploy": "yarn install && pm2 startOrRestart index.js",
