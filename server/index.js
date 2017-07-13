@@ -1,18 +1,20 @@
 import Koa from 'koa'
 import Nuxt from 'nuxt'
+import Router from 'koa-router'
+import raspivid from 'raspivid'
+import { createWriteStream } from 'fs'
+import { resolve } from 'path'
 
 const app = new Koa()
+const router = new Router()
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 
-// Start nuxt.js
 async function start () {
-  // Import and Set Nuxt.js options
   let config = require('../nuxt.config.js')
   config.dev = !(app.env === 'production')
-  // Instanciate nuxt.js
   const nuxt = await new Nuxt(config)
-  // Build in development
+
   if (config.dev) {
     try {
       await nuxt.build()
@@ -22,13 +24,23 @@ async function start () {
     }
   }
 
+  router.get('/stream', async ctx => {
+    var file = createWriteStream(resolve(__dirname, '/video.h264'))
+    var video = raspivid()
+    ctx.body = video.pipe(file)
+  })
+
+  app
+    .use(router.routes())
+    .use(router.middleware())
+
   app.use(async (ctx, next) => {
-  ctx.status = 200 // koa defaults to 404 when it sees that status is unset
+    ctx.status = 200
     await nuxt.render(ctx.req, ctx.res)
   })
 
   app.listen(port, host)
-  console.log('Server listening on ' + host + ':' + port) // eslint-disable-line no-console
+  console.log(`Server listening on ${host}:${port}`)
 }
 
 start()
