@@ -2,26 +2,21 @@
   "apps": [
     {
       "name": "rashpberry-webrtc",
-      "script": "~/www/development/source/index.js",
-      "env": {
-        "COMMON_VARIABLE": "true"
-      },
-      "env_production": {
-        "NODE_ENV": "development"
-      }
+      "script": "index.js"
     }
   ],
   "deploy": {
-    "dev": {
+    "staging": {
       "user": "pi",
       "host": "219.82.181.53",
       "port": "22",
       "ref": "origin/master",
       "repo": "git@github.com:zezhipeng/raspberry-webrtc.git",
       "path": "~/www/development",
+      "ssh_options": ["StrictHostKeyChecking=no", "PasswordAuthentication=no"],
       "post-deploy": "yarn install && pm2 startOrRestart ~/www/development/source/index.js --env dev",
       "env": {
-        "NODE_ENV": "development"
+        "NODE_ENV": "staging"
       }
     }
   }
