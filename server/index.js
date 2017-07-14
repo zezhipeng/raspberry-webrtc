@@ -7,7 +7,7 @@ import { resolve } from 'path'
 
 const app = new Koa()
 const router = new Router()
-const host = process.env.HOST || '127.0.0.1'
+const host = process.env.HOST || '192.168.1.111'
 const port = process.env.PORT || 3000
 
 async function start () {
