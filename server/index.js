@@ -29,8 +29,7 @@ async function start () {
     console.log(url)
     var file = createWriteStream(url)
     var video = raspivid()
-    video.pipe(file)
-    ctx.body = createReadStream(url)
+    video.pipe(file).pipe(ctx.res)
   })
 
   app
