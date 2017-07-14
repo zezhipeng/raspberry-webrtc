@@ -5,6 +5,7 @@ import raspivid from 'raspivid'
 import { createWriteStream, createReadStream } from 'fs'
 import { resolve } from 'path'
 // import shelljs from 'shelljs'
+import serve from 'koa-static'
 
 const app = new Koa()
 const router = new Router()
@@ -25,8 +26,10 @@ async function start () {
     }
   }
 
+  app.use(serve(resolve(__dirname, '../public')))
+
   router.get('/stream', async ctx => {
-    const url = resolve(__dirname, './video.h264')
+    const url = resolve(__dirname, '../public/video.h264')
     var file = createWriteStream(url)
     var video = raspivid()
 
