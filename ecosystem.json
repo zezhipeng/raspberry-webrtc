@@ -1,0 +1,20 @@
+{
+  "apps" : {
+    "name"      : "raspberry-webrtc",
+    "script"    : "server/index"
+  },
+  "deploy" : {
+    "staging" : {
+      "user" : "pi",
+      "host" : "192.168.1.111",
+      "ref"  : "origin/master",
+      "repo" : "git@github.com:zezhipeng/raspberry-webrtc.git",
+      "path" : "~/www/development",
+      "ssh_options": ["StrictHostKeyChecking=no", "PasswordAuthentication=no"],
+      "post-deploy" : "pm2 startOrRestart ecosystem.json --env dev",
+      "env"  : {
+        "NODE_ENV": "staging"
+      }
+    }
+  }
+}
