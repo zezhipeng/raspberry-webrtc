@@ -1,14 +1,16 @@
-<template>
-  <section class="container">
-    <img src="../assets/img/logo.png" alt="Nuxt.js Logo" class="logo" />
-    <h1 class="title">
-      Universal Vue.js Application Framework
-    </h1>
-    <nuxt-link class="button" to="/about">
-      About page
-    </nuxt-link>
-  </section>
+<template lang='pug'>
+section.container
+  h1.title
+    | Universal Vue.js Application Framework
+  video(controls)
+    source(src='/stream', type='video/mp4')
 </template>
+
+<script>
+export default {
+
+}
+</script>
 
 <style scoped>
 .title

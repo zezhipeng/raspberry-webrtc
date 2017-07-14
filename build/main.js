@@ -65,14 +65,14 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(4);
+module.exports = __webpack_require__(8);
 
 
 /***/ },
@@ -102,86 +102,117 @@ module.exports = {
 /* 2 */
 /***/ function(module, exports) {
 
-module.exports = require("koa");
+module.exports = require("fs");
 
 /***/ },
 /* 3 */
 /***/ function(module, exports) {
 
-module.exports = require("nuxt");
+module.exports = require("koa");
 
 /***/ },
 /* 4 */
 /***/ function(module, exports) {
 
-module.exports = require("regenerator-runtime");
+module.exports = require("koa-router");
 
 /***/ },
 /* 5 */
+/***/ function(module, exports) {
+
+module.exports = require("nuxt");
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+module.exports = require("path");
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+module.exports = require("raspivid");
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+module.exports = require("regenerator-runtime");
+
+/***/ },
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(__dirname) {Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_mac_Projects_raspberry_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_mac_Projects_raspberry_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_mac_Projects_raspberry_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_nuxt__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_router__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_koa_router__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_raspivid__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_raspivid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_raspivid__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_fs__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_fs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_path__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_path__);
 
 
-// Start nuxt.js
 var start = function () {
-  var _ref = _asyncToGenerator(__WEBPACK_IMPORTED_MODULE_0__Users_mac_Projects_raspberry_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2() {
+  var _ref = _asyncToGenerator(__WEBPACK_IMPORTED_MODULE_0__Users_mac_Projects_raspberry_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3() {
     var _this = this;
 
     var config, nuxt;
-    return __WEBPACK_IMPORTED_MODULE_0__Users_mac_Projects_raspberry_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+    return __WEBPACK_IMPORTED_MODULE_0__Users_mac_Projects_raspberry_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
       while (1) {
-        switch (_context2.prev = _context2.next) {
+        switch (_context3.prev = _context3.next) {
           case 0:
-            // Import and Set Nuxt.js options
             config = __webpack_require__(1);
 
             config.dev = !(app.env === 'production');
-            // Instanciate nuxt.js
-            _context2.next = 4;
+            _context3.next = 4;
             return new __WEBPACK_IMPORTED_MODULE_2_nuxt___default.a(config);
 
           case 4:
-            nuxt = _context2.sent;
+            nuxt = _context3.sent;
 
             if (!config.dev) {
-              _context2.next = 15;
+              _context3.next = 15;
               break;
             }
 
-            _context2.prev = 6;
-            _context2.next = 9;
+            _context3.prev = 6;
+            _context3.next = 9;
             return nuxt.build();
 
           case 9:
-            _context2.next = 15;
+            _context3.next = 15;
             break;
 
           case 11:
-            _context2.prev = 11;
-            _context2.t0 = _context2['catch'](6);
+            _context3.prev = 11;
+            _context3.t0 = _context3['catch'](6);
 
-            console.error(_context2.t0); // eslint-disable-line no-console
+            console.error(_context3.t0); // eslint-disable-line no-console
             process.exit(1);
 
           case 15:
 
-            app.use(function () {
-              var _ref2 = _asyncToGenerator(__WEBPACK_IMPORTED_MODULE_0__Users_mac_Projects_raspberry_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
+            router.get('/stream', function () {
+              var _ref2 = _asyncToGenerator(__WEBPACK_IMPORTED_MODULE_0__Users_mac_Projects_raspberry_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx) {
+                var file, video;
                 return __WEBPACK_IMPORTED_MODULE_0__Users_mac_Projects_raspberry_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
                   while (1) {
                     switch (_context.prev = _context.next) {
                       case 0:
-                        ctx.status = 200; // koa defaults to 404 when it sees that status is unset
-                        _context.next = 3;
-                        return nuxt.render(ctx.req, ctx.res);
+                        file = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_fs__["createWriteStream"])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_path__["resolve"])(__dirname, '/video.mp4'));
+                        video = __WEBPACK_IMPORTED_MODULE_4_raspivid___default()();
+
+                        ctx.body = video.pipe(file);
 
                       case 3:
                       case 'end':
@@ -191,20 +222,45 @@ var start = function () {
                 }, _callee, _this);
               }));
 
-              return function (_x, _x2) {
+              return function (_x) {
                 return _ref2.apply(this, arguments);
               };
             }());
 
-            app.listen(port, host);
-            console.log('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
+            app.use(router.routes()).use(router.middleware());
 
-          case 18:
+            app.use(function () {
+              var _ref3 = _asyncToGenerator(__WEBPACK_IMPORTED_MODULE_0__Users_mac_Projects_raspberry_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
+                return __WEBPACK_IMPORTED_MODULE_0__Users_mac_Projects_raspberry_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+                  while (1) {
+                    switch (_context2.prev = _context2.next) {
+                      case 0:
+                        ctx.status = 200;
+                        _context2.next = 3;
+                        return nuxt.render(ctx.req, ctx.res);
+
+                      case 3:
+                      case 'end':
+                        return _context2.stop();
+                    }
+                  }
+                }, _callee2, _this);
+              }));
+
+              return function (_x2, _x3) {
+                return _ref3.apply(this, arguments);
+              };
+            }());
+
+            app.listen(port, host);
+            console.log('Server listening on ' + host + ':' + port);
+
+          case 20:
           case 'end':
-            return _context2.stop();
+            return _context3.stop();
         }
       }
-    }, _callee2, this, [[6, 11]]);
+    }, _callee3, this, [[6, 11]]);
   }));
 
   return function start() {
@@ -217,11 +273,17 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
+
+
+
+
 var app = new __WEBPACK_IMPORTED_MODULE_1_koa___default.a();
+var router = new __WEBPACK_IMPORTED_MODULE_3_koa_router___default.a();
 var host = process.env.HOST || '127.0.0.1';
 var port = process.env.PORT || 3000;
 
 start();
+/* WEBPACK VAR INJECTION */}.call(exports, "server"))
 
 /***/ }
 /******/ ]);

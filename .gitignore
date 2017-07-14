@@ -1,18 +1,7 @@
-<<<<<<< HEAD
-# dependencies
-node_modules
 
-# logs
-npm-debug.log
-
-# Nuxt build
-.nuxt
-
-# Nuxt generate
-dist
-=======
 .DS_Store
 npm-debug.log
 node_modules
 yarn-error.log
->>>>>>> 1c7c477cec93efc9d60709872b067ef597760458
+build/
+.nuxt
