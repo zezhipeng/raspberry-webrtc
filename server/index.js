@@ -25,7 +25,9 @@ async function start () {
   }
 
   router.get('/stream', async ctx => {
-    var file = createWriteStream('~/www/development/source/video.mp4')
+    const url = resolve(__dirname, './video.mp4')
+    console.log(url)
+    var file = createWriteStream(url)
     var video = raspivid()
     ctx.body = video.pipe(file)
   })
