@@ -2,7 +2,7 @@ import Koa from 'koa'
 import Nuxt from 'nuxt'
 import Router from 'koa-router'
 import raspivid from 'raspivid'
-import { createWriteStream } from 'fs'
+import { createWriteStream, createReadStream } from 'fs'
 import { resolve } from 'path'
 
 const app = new Koa()
@@ -29,7 +29,8 @@ async function start () {
     console.log(url)
     var file = createWriteStream(url)
     var video = raspivid()
-    ctx.body = video.pipe(file)
+    video.pipe(file)
+    ctx.body = createReadStream(url)
   })
 
   app
