@@ -1,7 +1,7 @@
 {
   "apps" : {
     "name"      : "raspberry-webrtc",
-    "script"    : "backpack dev"
+    "script"    : "build/main.js"
   },
   "deploy" : {
     "staging" : {
