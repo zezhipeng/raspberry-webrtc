@@ -65,14 +65,14 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(8);
+module.exports = __webpack_require__(9);
 
 
 /***/ },
@@ -120,28 +120,34 @@ module.exports = require("koa-router");
 /* 5 */
 /***/ function(module, exports) {
 
-module.exports = require("nuxt");
+module.exports = require("koa-static");
 
 /***/ },
 /* 6 */
 /***/ function(module, exports) {
 
-module.exports = require("path");
+module.exports = require("nuxt");
 
 /***/ },
 /* 7 */
 /***/ function(module, exports) {
 
-module.exports = require("raspivid");
+module.exports = require("path");
 
 /***/ },
 /* 8 */
 /***/ function(module, exports) {
 
-module.exports = require("regenerator-runtime");
+module.exports = require("raspivid");
 
 /***/ },
 /* 9 */
+/***/ function(module, exports) {
+
+module.exports = require("regenerator-runtime");
+
+/***/ },
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -150,16 +156,18 @@ module.exports = require("regenerator-runtime");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_mac_Projects_raspberry_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_mac_Projects_raspberry_node_modules_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_nuxt__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_router__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_koa_router__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_raspivid__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_raspivid__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_raspivid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_raspivid__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_fs__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_fs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_path__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_path__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_path__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_koa_static__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_koa_static___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_koa_static__);
 
 
 var start = function () {
@@ -202,19 +210,25 @@ var start = function () {
 
           case 15:
 
+            app.use(__WEBPACK_IMPORTED_MODULE_7_koa_static___default()(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_path__["resolve"])(__dirname, '../public')));
+
             router.get('/stream', function () {
               var _ref2 = _asyncToGenerator(__WEBPACK_IMPORTED_MODULE_0__Users_mac_Projects_raspberry_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx) {
-                var file, video;
+                var url, file, video;
                 return __WEBPACK_IMPORTED_MODULE_0__Users_mac_Projects_raspberry_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
                   while (1) {
                     switch (_context.prev = _context.next) {
                       case 0:
-                        file = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_fs__["createWriteStream"])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_path__["resolve"])(__dirname, '/video.mp4'));
+                        url = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_path__["resolve"])(__dirname, '../public/video.h264');
+                        file = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_fs__["createWriteStream"])(url);
                         video = __WEBPACK_IMPORTED_MODULE_4_raspivid___default()();
 
-                        ctx.body = video.pipe(file);
 
-                      case 3:
+                        video.pipe(file);
+
+                        ctx.body = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_fs__["createReadStream"])(url);
+
+                      case 5:
                       case 'end':
                         return _context.stop();
                     }
@@ -255,7 +269,7 @@ var start = function () {
             app.listen(port, host);
             console.log('Server listening on ' + host + ':' + port);
 
-          case 20:
+          case 21:
           case 'end':
             return _context3.stop();
         }
@@ -276,10 +290,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
+// import shelljs from 'shelljs'
+
 
 var app = new __WEBPACK_IMPORTED_MODULE_1_koa___default.a();
 var router = new __WEBPACK_IMPORTED_MODULE_3_koa_router___default.a();
-var host = process.env.HOST || '127.0.0.1';
+var host = process.env.HOST || '192.168.1.111';
 var port = process.env.PORT || 3000;
 
 start();

@@ -2,8 +2,8 @@
 section.container
   h1.title
     | Universal Vue.js Application Framework
-  video(controls)
-    source(src='/stream', type='video/mp4')
+  video(controls, autoplay)
+    source(src='http://192.168.1.111:3000/video.h264', type='video/mp4')
 </template>
 
 <script>
