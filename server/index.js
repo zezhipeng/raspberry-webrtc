@@ -9,7 +9,10 @@ import serve from 'koa-static'
 
 const app = new Koa()
 const router = new Router()
-const host = process.env.HOST || '192.168.1.111'
+const host = app.env === 'production'
+  ? '192.168.1.111'
+  : '127.0.0.1'
+
 const port = process.env.PORT || 3000
 
 async function start () {
@@ -29,13 +32,21 @@ async function start () {
   app.use(serve(resolve(__dirname, '../public')))
 
   router.get('/stream', async ctx => {
-    const url = resolve(__dirname, '../public/video.h264')
-    var file = createWriteStream(url)
-    var video = raspivid()
+    if (config.dev === 'production') {
+      const url = resolve(__dirname, '../public/video.h264')
+      var file = createWriteStream(url)
+      var video = raspivid()
 
-    video.pipe(file)
+      video.pipe(file)
 
-    ctx.body = createReadStream(url)
+      return (ctx.body = createReadStream(url))
+    }
+
+    ctx.body = 'dev'
+  })
+
+  router.get('/test', async ctx => {
+    ctx.body = 'test'
   })
 
   app
