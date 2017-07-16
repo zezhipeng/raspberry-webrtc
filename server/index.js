@@ -45,10 +45,11 @@ async function start () {
     console.log(pins)
     pins = JSON.parse(pins)
     console.log(pins)
-    const gpioPins = R.map(item => gpio.export(Number(item.id), {
+    const gpioPins = R.forEach(item => gpio.export(Number(item.id), {
       direction: item.direction,
       interval: 200,
       ready () {
+        console.log('this', this)
         this.set()
         console.log('ready value', this.value)
         console.log(item.id, 'is ready')
