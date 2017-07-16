@@ -42,21 +42,20 @@ async function start () {
   router.get('/gpio', async ctx => {
     // const type = R.type(pins)
     let pins = ctx.query.pins
-    console.log(pins)
+
     pins = JSON.parse(pins)
-    console.log(pins)
-    const gpioPins = R.forEach(item => gpio.export(Number(item.id), {
-      direction: item.direction,
+    let pin = pins[0]
+    const gpioPin = gpio.export(Number(pin.id), {
+      direction: pin.direction,
       interval: 200,
       ready () {
         console.log('this', this)
-        this.set()
         console.log('ready value', this.value)
-        console.log(item.id, 'is ready')
+        console.log(pin.id, 'is ready')
       }
-    }))
+    })
 
-    console.log(gpioPins)
+    gpioPin.set()
     ctx.body = 'done'
   })
 
