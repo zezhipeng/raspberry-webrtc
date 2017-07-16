@@ -1,8 +1,7 @@
 import Koa from 'koa'
 import Nuxt from 'nuxt'
 import Router from 'koa-router'
-import raspivid from 'raspivid'
-import { createWriteStream, createReadStream } from 'fs'
+// import raspivid from 'raspivid-stream'
 import { resolve } from 'path'
 // import shelljs from 'shelljs'
 import serve from 'koa-static'
@@ -34,20 +33,6 @@ async function start () {
 
   app.use(serve(resolve(__dirname, '../public')))
 
-  router.get('/stream', async ctx => {
-    if (env === 'production') {
-      const url = resolve(__dirname, '../public/video.mp4')
-      var file = createWriteStream(url)
-      var video = raspivid()
-
-      video.pipe(file)
-
-      return (ctx.body = createReadStream(url))
-    }
-
-    ctx.body = 'dev'
-  })
-
   router.get('/test', async ctx => {
     ctx.body = 'test'
   })
@@ -61,7 +46,15 @@ async function start () {
     await nuxt.render(ctx.req, ctx.res)
   })
 
-  app.listen(port, host)
+  const server = app.listen(port, host)
+  const io = require('socket.io')(server)
+
+  io.on('connection', socket => {
+    console.log('new connection')
+    socket.on('msg', data => {
+      console.log('Message from peer: %s', data)
+    })
+  })
   console.log(`Server listening on ${host}:${port}`)
 }
 
