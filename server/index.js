@@ -6,7 +6,7 @@ import { createWriteStream, createReadStream } from 'fs'
 import { resolve } from 'path'
 // import shelljs from 'shelljs'
 import serve from 'koa-static'
-console.log(process.env)
+
 const app = new Koa()
 const router = new Router()
 const env = process.env.NODE_ENV || 'development'
