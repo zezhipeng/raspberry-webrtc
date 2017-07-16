@@ -7,6 +7,7 @@ import { resolve } from 'path'
 import serve from 'koa-static'
 import gpio from 'gpio'
 import R from 'ramda'
+import koaBody from 'koa-body'
 
 const app = new Koa()
 const router = new Router()
@@ -32,6 +33,7 @@ async function start () {
   }
 
   app.use(serve(resolve(__dirname, '../public')))
+  app.use(koaBody())
 
   router.get('/test', async ctx => {
     ctx.body = 'test'
@@ -40,6 +42,7 @@ async function start () {
   router.get('/gpio', async ctx => {
     // const type = R.type(pins)
     let pins = ctx.query.pins
+    console.log(pins)
     pins = JSON.parse(pins)
     console.log(pins)
     const gpioPins = R.map(item => gpio.export(Number(item.id), {
