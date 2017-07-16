@@ -6,13 +6,15 @@ import { createWriteStream, createReadStream } from 'fs'
 import { resolve } from 'path'
 // import shelljs from 'shelljs'
 import serve from 'koa-static'
-
+console.log(process.env)
 const app = new Koa()
 const router = new Router()
 const env = process.env.NODE_ENV || 'development'
 const host = env === 'production'
   ? '192.168.1.111'
   : '127.0.0.1'
+
+console.log(env, host)
 
 const port = process.env.PORT || 3000
 

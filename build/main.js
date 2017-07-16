@@ -328,6 +328,8 @@ var router = new __WEBPACK_IMPORTED_MODULE_3_koa_router___default.a();
 var env = "development" || 'development';
 var host = env === 'production' ? '192.168.1.111' : '127.0.0.1';
 
+console.log(env, host);
+
 var port = process.env.PORT || 3000;
 
 start();
