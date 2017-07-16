@@ -49,6 +49,7 @@ async function start () {
       direction: item.direction,
       interval: 200,
       ready () {
+        console.log(this.value)
         console.log(item.id, 'is ready')
       }
     }))
@@ -56,7 +57,9 @@ async function start () {
     const gpios = gpioPins(pins)
 
     pins.forEach((item, i) => {
-      gpios[i].set(item.set)
+      console.log(item)
+      console.log(gpios[i])
+      gpios[i].set()
     })
 
     ctx.body = 'done'
