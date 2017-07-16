@@ -224,7 +224,7 @@ var start = function () {
                           break;
                         }
 
-                        url = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_path__["resolve"])(__dirname, '../public/video.h264');
+                        url = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_path__["resolve"])(__dirname, '../public/video.mp4');
                         file = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_fs__["createWriteStream"])(url);
                         video = __WEBPACK_IMPORTED_MODULE_4_raspivid___default()();
 
