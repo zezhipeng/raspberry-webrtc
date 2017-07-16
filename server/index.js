@@ -59,7 +59,9 @@ async function start () {
     pins.forEach((item, i) => {
       console.log(item)
       console.log(gpios[i])
-      gpios[i].set()
+      gpios[i].set(() => {
+        console.log(gpios[i].value)
+      })
     })
 
     ctx.body = 'done'
