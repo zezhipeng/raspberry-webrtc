@@ -9,7 +9,8 @@ import serve from 'koa-static'
 
 const app = new Koa()
 const router = new Router()
-const host = app.env === 'production'
+const env = process.env.NODE_ENV || 'development'
+const host = env === 'production'
   ? '192.168.1.111'
   : '127.0.0.1'
 
@@ -17,7 +18,7 @@ const port = process.env.PORT || 3000
 
 async function start () {
   let config = require('../nuxt.config.js')
-  config.dev = !(app.env === 'production')
+  config.dev = !(env === 'production')
   const nuxt = await new Nuxt(config)
 
   if (config.dev) {
@@ -32,7 +33,7 @@ async function start () {
   app.use(serve(resolve(__dirname, '../public')))
 
   router.get('/stream', async ctx => {
-    if (config.dev === 'production') {
+    if (env === 'production') {
       const url = resolve(__dirname, '../public/video.mp4')
       var file = createWriteStream(url)
       var video = raspivid()

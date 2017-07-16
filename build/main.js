@@ -181,7 +181,7 @@ var start = function () {
           case 0:
             config = __webpack_require__(1);
 
-            config.dev = !(app.env === 'production');
+            config.dev = !(env === 'production');
             _context4.next = 4;
             return new __WEBPACK_IMPORTED_MODULE_2_nuxt___default.a(config);
 
@@ -219,7 +219,7 @@ var start = function () {
                   while (1) {
                     switch (_context.prev = _context.next) {
                       case 0:
-                        if (!(config.dev === 'production')) {
+                        if (!(env === 'production')) {
                           _context.next = 6;
                           break;
                         }
@@ -325,7 +325,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var app = new __WEBPACK_IMPORTED_MODULE_1_koa___default.a();
 var router = new __WEBPACK_IMPORTED_MODULE_3_koa_router___default.a();
-var host = app.env === 'production' ? '192.168.1.111' : '127.0.0.1';
+var env = "development" || 'development';
+var host = env === 'production' ? '192.168.1.111' : '127.0.0.1';
 
 var port = process.env.PORT || 3000;
 
