@@ -1,10 +1,12 @@
 import Koa from 'koa'
 import Nuxt from 'nuxt'
 import Router from 'koa-router'
-// import raspivid from 'raspivid-stream'
+import raspivid from 'raspivid-stream'
 import { resolve } from 'path'
 // import shelljs from 'shelljs'
 import serve from 'koa-static'
+import gpio from 'gpio'
+import R from 'ramda'
 
 const app = new Koa()
 const router = new Router()
@@ -12,8 +14,6 @@ const env = process.env.NODE_ENV || 'development'
 const host = env === 'production'
   ? '192.168.1.111'
   : '127.0.0.1'
-
-console.log(env, host)
 
 const port = process.env.PORT || 3000
 
@@ -37,6 +37,27 @@ async function start () {
     ctx.body = 'test'
   })
 
+  router.get('/gpio', async ctx => {
+    // const type = R.type(pins)
+    const pins = ctx.query.pins
+
+    const gpioPins = R.map(item => gpio.export(Number(item.id), {
+      direction: item.direction,
+      interval: 200,
+      ready () {
+        console.log(item.id, 'is ready')
+      }
+    }))
+
+    const gpios = gpioPins(pins)
+
+    pins.forEach((item, i) => {
+      gpios[i].set(item.set)
+    })
+
+    ctx.body = 'done'
+  })
+
   app
     .use(router.routes())
     .use(router.middleware())
@@ -47,23 +68,23 @@ async function start () {
   })
 
   const server = app.listen(port, host)
-  // const io = require('socket.io')(server)
-  const WebStreamerServer = require('h264-live-player/lib/raspivid')
-  const silence = new WebStreamerServer(server)
-  console.log('silence', silence)
-  // io.on('connection', socket => {
-  //   console.log('new connection')
-  //   socket.on('msg', data => {
-  //     console.log('Message from peer: %s', data)
-  //   })
+  const io = require('socket.io')(server)
+  // const WebStreamerServer = require('./raspivid')
+  // const silence = new WebStreamerServer(server)
+  // console.log('silence', silence)
+  io.on('connection', socket => {
+    console.log('new connection')
+    socket.on('msg', data => {
+      console.log('Message from peer: %s', data)
+    })
 
-  //   socket.on('stream', () => {
-  //     var stream = raspivid()
-  //     stream.on('data', data => {
-  //       io.emit('stream', data)
-  //     })
-  //   })
-  // })
+    socket.on('stream', () => {
+      var stream = raspivid()
+      stream.on('data', data => {
+        io.emit('stream', data)
+      })
+    })
+  })
   console.log(`Server listening on ${host}:${port}`)
 }
 
