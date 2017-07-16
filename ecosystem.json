@@ -1,7 +1,13 @@
 {
   "apps" : {
     "name"      : "raspberry-webrtc",
-    "script"    : "build/main.js"
+    "script"    : "start.js",
+    "env": {
+      "COMMON_VARIABLE": "true"
+    },
+    "env_production" : {
+      "NODE_ENV": "production"
+    }
   },
   "deploy" : {
     "staging" : {
