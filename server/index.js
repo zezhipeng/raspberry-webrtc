@@ -40,22 +40,35 @@ async function start () {
   })
 
   router.get('/gpio', async ctx => {
-    // const type = R.type(pins)
-    let pins = ctx.query.pins
-
-    pins = JSON.parse(pins)
-    let pin = pins[0]
-    const gpioPin = gpio.export(Number(pin.id), {
-      direction: pin.direction,
-      interval: 200,
+    let intervalTimer
+    let gpio4
+    let gpio22 = gpio.export(22, {
       ready () {
-        console.log('this', this)
-        console.log('ready value', this.value)
-        console.log(pin.id, 'is ready')
+        intervalTimer = setInterval(function () {
+          gpio22.set()
+          setTimeout(function () { gpio22.reset() }, 500)
+        }, 1000)
+      }
+    })
+    gpio4 = gpio.export(4, {
+      ready: function () {
+        gpio22.on('change', function (val) {
+          gpio4.set(1 - val) // set gpio4 to the opposite value
+        })
       }
     })
 
-    gpioPin.set()
+    // reset the headers and unexport after 10 seconds
+    setTimeout(function () {
+      clearInterval(intervalTimer)          // stops the voltage cycling
+      gpio22.removeAllListeners('change')   // unbinds change event
+      gpio22.reset()                        // sets header to low
+      gpio22.unexport()                     // unexport the header
+      gpio4.reset()
+      gpio4.unexport(function () {
+        process.exit() // exits your node program
+      })
+    }, 10000)
     ctx.body = 'done'
   })
 
