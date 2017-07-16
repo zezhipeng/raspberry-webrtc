@@ -1,7 +1,7 @@
 import Koa from 'koa'
 import Nuxt from 'nuxt'
 import Router from 'koa-router'
-// import raspivid from 'raspivid-stream'
+import raspivid from 'raspivid-stream'
 import { resolve } from 'path'
 // import shelljs from 'shelljs'
 import serve from 'koa-static'
@@ -53,6 +53,13 @@ async function start () {
     console.log('new connection')
     socket.on('msg', data => {
       console.log('Message from peer: %s', data)
+    })
+
+    socket.on('stream', () => {
+      var stream = raspivid()
+      stream.on('data', data => {
+        io.emit('stream', data)
+      })
     })
   })
   console.log(`Server listening on ${host}:${port}`)
