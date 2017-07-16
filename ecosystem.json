@@ -19,7 +19,7 @@
       "ref"  : "origin/master",
       "repo" : "git@github.com:zezhipeng/raspberry-webrtc.git",
       "path" : "~/www/development",
-      "ssh_options": "StrictHostKeyChecking=no",
+      "ssh_options": ["StrictHostKeyChecking=no", "PasswordAuthentication=no"],
       "pre-setup" : "apt-get install git",
       "post-setup": "ls -la",
       "pre-deploy-local" : "echo 'This is a local executed command'",
