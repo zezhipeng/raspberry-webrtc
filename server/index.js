@@ -22,7 +22,7 @@ async function start () {
   config.dev = !(env === 'production')
   const nuxt = await new Nuxt(config)
 
-  if (config.dev) {
+  if (env !== 'production') {
     try {
       await nuxt.build()
     } catch (e) {
@@ -37,7 +37,7 @@ async function start () {
     ctx.body = 'test'
   })
 
-  router.post('/gpio', async ctx => {
+  router.get('/gpio', async ctx => {
     // const type = R.type(pins)
     let pins = ctx.query.pins
     pins = JSON.parse(pins)
