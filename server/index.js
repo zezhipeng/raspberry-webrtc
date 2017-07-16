@@ -33,7 +33,7 @@ async function start () {
 
   router.get('/stream', async ctx => {
     if (config.dev === 'production') {
-      const url = resolve(__dirname, '../public/video.h264')
+      const url = resolve(__dirname, '../public/video.mp4')
       var file = createWriteStream(url)
       var video = raspivid()
 
