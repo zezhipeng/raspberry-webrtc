@@ -1,5 +1,5 @@
 {
-  "apps" : {
+  "apps" : [{
     "name"      : "raspberry-webrtc",
     "script"    : "start.js",
     "env": {
@@ -8,18 +8,36 @@
     "env_production" : {
       "NODE_ENV": "production"
     }
-  },
+  },{
+    "name"      : "raspberry-webrtc",
+    "script"    : "start.js"
+  }],
   "deploy" : {
     "production" : {
+      "user" : "pi",
+      "host" : ["192.168.1.111"],
+      "ref"  : "origin/master",
+      "repo" : "git@github.com:zezhipeng/raspberry-webrtc.git",
+      "path" : "~/www/development",
+      "ssh_options": "StrictHostKeyChecking=no",
+      "pre-setup" : "apt-get install git",
+      "post-setup": "ls -la",
+      "pre-deploy-local" : "echo 'This is a local executed command'",
+      "post-deploy" : "npm install && pm2 startOrRestart ecosystem.json --env production",
+      "env"  : {
+        "NODE_ENV": "production"
+      }
+    },
+    "staging" : {
       "user" : "pi",
       "host" : "192.168.1.111",
       "ref"  : "origin/master",
       "repo" : "git@github.com:zezhipeng/raspberry-webrtc.git",
       "path" : "~/www/development",
       "ssh_options": ["StrictHostKeyChecking=no", "PasswordAuthentication=no"],
-      "post-deploy" : "pm2 startOrRestart ecosystem.json --env production",
+      "post-deploy" : "pm2 startOrRestart ecosystem.json --env dev",
       "env"  : {
-        "NODE_ENV": "production"
+        "NODE_ENV": "staging"
       }
     }
   }

@@ -11,6 +11,9 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script: [
+      { src: 'https://rawgit.com/131/h264-live-player/master/vendor/dist/http-live-player.js' }
     ]
   },
   /*
