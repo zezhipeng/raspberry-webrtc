@@ -17,9 +17,9 @@
       "repo" : "git@github.com:zezhipeng/raspberry-webrtc.git",
       "path" : "~/www/development",
       "ssh_options": ["StrictHostKeyChecking=no", "PasswordAuthentication=no"],
-      "post-deploy" : "pm2 startOrRestart ecosystem.json --env dev",
+      "post-deploy" : "pm2 startOrRestart ecosystem.json --env production",
       "env"  : {
-        "NODE_ENV": "staging"
+        "NODE_ENV": "production"
       }
     }
   }
