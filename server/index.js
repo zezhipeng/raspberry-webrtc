@@ -37,10 +37,11 @@ async function start () {
     ctx.body = 'test'
   })
 
-  router.get('/gpio', async ctx => {
+  router.post('/gpio', async ctx => {
     // const type = R.type(pins)
-    const pins = ctx.query.pins
-
+    let pins = ctx.query.pins
+    pins = JSON.parse(pins)
+    console.log(pins)
     const gpioPins = R.map(item => gpio.export(Number(item.id), {
       direction: item.direction,
       interval: 200,
