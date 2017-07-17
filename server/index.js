@@ -59,7 +59,18 @@ async function start () {
   })
 
   router.get('/pwm', async ctx => {
-    piblaster.setPwm(17, 0.15)
+    let pin = ctx.query.pin
+    let bn = ctx.query.bn
+    pin = Number(pin)
+    bn = Number(bn)
+    console.log(pin, bn)
+    try {
+      piblaster.setPwm(pin, bn)
+    } catch (e) {
+      console.log(e)
+    }
+
+    ctx.body = 'done'
   })
 
   app
