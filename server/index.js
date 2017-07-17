@@ -41,7 +41,9 @@ async function start () {
 
   router.get('/gpio', async ctx => {
     let pins = ctx.query.pins
-    pins = R.forEach(item => {
+    pins = JSON.parse(pins)
+
+    R.forEach(item => {
       let pin = gpio.export(Number(item.id), {
         ready () {
           setInterval(() => {
@@ -50,7 +52,7 @@ async function start () {
           }, 1000)
         }
       })
-    })
+    })(pins)
 
     ctx.body = 'done'
   })
