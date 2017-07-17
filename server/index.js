@@ -45,10 +45,10 @@ async function start () {
 
     R.forEach(item => {
       let pin = gpio.export(Number(item.id), {
+        direction: item.direction,
         ready () {
           setInterval(() => {
-            pin.set()
-            setTimeout(() => pin.reset(), 500)
+            pin.set(item.set)
           }, 1000)
         }
       })
