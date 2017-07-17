@@ -8,6 +8,7 @@ import serve from 'koa-static'
 import gpio from 'gpio'
 import R from 'ramda'
 import koaBody from 'koa-body'
+import piblaster from 'pi-blaster.js'
 
 const app = new Koa()
 const router = new Router()
@@ -55,6 +56,10 @@ async function start () {
     })(pins)
 
     ctx.body = 'done'
+  })
+
+  router.get('/pwm', async ctx => {
+    piblaster.setPwm(17, 0.15)
   })
 
   app
