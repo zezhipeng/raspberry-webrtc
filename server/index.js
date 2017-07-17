@@ -50,7 +50,10 @@ async function start () {
         ready () {
           setInterval(() => {
             pin.set(item.set)
-          }, 1000)
+            setTimeout(() => {
+              pin.reset()
+            }, 14)
+          }, 28)
         }
       })
     })(pins)
