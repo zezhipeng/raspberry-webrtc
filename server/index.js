@@ -40,35 +40,15 @@ async function start () {
   })
 
   router.get('/gpio', async ctx => {
-    let intervalTimer
-    let gpio4
     let gpio22 = gpio.export(22, {
       ready () {
-        intervalTimer = setInterval(function () {
+        setInterval(function () {
           gpio22.set()
           setTimeout(function () { gpio22.reset() }, 500)
         }, 1000)
       }
     })
-    gpio4 = gpio.export(4, {
-      ready: function () {
-        gpio22.on('change', function (val) {
-          gpio4.set(1 - val) // set gpio4 to the opposite value
-        })
-      }
-    })
 
-    // reset the headers and unexport after 10 seconds
-    setTimeout(function () {
-      clearInterval(intervalTimer)          // stops the voltage cycling
-      gpio22.removeAllListeners('change')   // unbinds change event
-      gpio22.reset()                        // sets header to low
-      gpio22.unexport()                     // unexport the header
-      gpio4.reset()
-      gpio4.unexport(function () {
-        process.exit() // exits your node program
-      })
-    }, 10000)
     ctx.body = 'done'
   })
 
