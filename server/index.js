@@ -63,12 +63,24 @@ async function start () {
 
   router.get('/pwm', async ctx => {
     let pin = ctx.query.pin
-    let bn = ctx.query.bn
+    let clk = ctx.query.clk
+
     pin = Number(pin)
-    bn = Number(bn)
-    console.log(pin, bn)
+    clk = Number(clk)
+
+    console.log(pin, clk)
     try {
-      piblaster.setPwm(pin, bn)
+      let g = gpio.export(pin, {
+        direction: 'out',
+        ready () {
+          setInterval(() => {
+            g.set()
+            setTimeout(() => {
+              g.reset()
+            }, 0.5 / clk)
+          }, 1 / clk)
+        }
+      })
     } catch (e) {
       console.log(e)
     }
