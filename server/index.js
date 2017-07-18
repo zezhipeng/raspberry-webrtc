@@ -68,22 +68,22 @@ async function start () {
     pin = Number(pin)
     clk = Number(clk)
 
-    console.log(pin, clk)
-    try {
-      let g = gpio.export(pin, {
-        direction: 'out',
-        ready () {
-          setInterval(() => {
-            g.set()
-            setTimeout(() => {
-              g.reset()
-            }, 0.5 / clk)
-          }, 1 / clk)
-        }
-      })
-    } catch (e) {
-      console.log(e)
-    }
+    // console.log(pin, clk)
+    // try {
+    //   let g = gpio.export(pin, {
+    //     direction: 'out',
+    //     ready () {
+    //       setInterval(() => {
+    //         g.set()
+    //         setTimeout(() => {
+    //           g.reset()
+    //         }, 0.5 / clk)
+    //       }, 1 / clk)
+    //     }
+    //   })
+    // } catch (e) {
+    //   console.log(e)
+    // }
 
     ctx.body = 'done'
   })
