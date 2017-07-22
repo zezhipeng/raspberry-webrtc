@@ -12,9 +12,6 @@ export const open = (pinNumber, direction) => new Promise((resolve, reject) => {
 
 export const write = (pinNumber, value) => new Promise((resolve, reject) => {
   const path = `${SYS_PATH}${pinNumber}/value`
-  value = value === '1'
-    ? '1'
-    : '0'
 
   writeFile(path, value, 'utf8', (err, res) => {
     if (err) reject(err)
