@@ -5,10 +5,9 @@ import raspivid from 'raspivid-stream'
 import { resolve } from 'path'
 // import shelljs from 'shelljs'
 import serve from 'koa-static'
-import gpio from 'gpio'
 import R from 'ramda'
 import koaBody from 'koa-body'
-import piblaster from 'pi-blaster.js'
+import { open, write } from './gpio'
 
 const app = new Koa()
 const router = new Router()
@@ -44,18 +43,13 @@ async function start () {
     let pins = ctx.query.pins
     pins = JSON.parse(pins)
 
-    R.forEach(item => {
-      let pin = gpio.export(Number(item.id), {
-        direction: item.direction,
-        ready () {
-          setInterval(() => {
-            pin.set(item.set)
-            setTimeout(() => {
-              pin.reset()
-            }, 14)
-          }, 28)
-        }
-      })
+    R.forEach(async item => {
+      try {
+        await open(Number(item.id), item.direction)
+        await write(Number(item.id), item.value)
+      } catch (e) {
+        ctx.throw(500, e)
+      }
     })(pins)
 
     ctx.body = 'done'

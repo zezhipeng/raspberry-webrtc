@@ -1,23 +1,28 @@
-var gpio = require('node-gpio')
-var PWM = gpio.PWM
-var pin = new PWM('11')
+import { writeFile } from 'fs'
 
-pin.open()
-pin.setMode(gpio.OUT)
-pin.frequency = 50
+const SYS_PATH = '/sys/class/gpio'
 
-var sleep = time => new Promise(resolve => setTimeout(resolve, time))
+const open = (pinNumber, direction) => new Promise((resolve, reject) => {
+  const path = `${SYS_PATH}/direction`
+  writeFile(path, direction, (err, res) => {
+    if (err) reject(err)
+    resolve(res)
+  })
+})
 
-let dc = 20
+const write = (pinNumber, value) => new Promise((resolve, reject) => {
+  const path = `${SYS_PATH}/value`
+  value = !value
+    ? '0'
+    : '1'
 
-pin.dutyCycle = dc
-pin.start()
+  writeFile(path, value, (err, res) => {
+    if (err) reject(err)
+    resolve(res)
+  })
+})
 
-const todo = async () => {
-  for (let i = 20; i > 0; --i) {
-    pin.dutyCycle = i
-    await sleep(1000)
-  }
+export default {
+  open,
+  write
 }
-
-todo()
