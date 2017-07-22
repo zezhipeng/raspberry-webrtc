@@ -2,7 +2,7 @@ import { writeFile } from 'fs'
 
 const SYS_PATH = '/sys/class/gpio'
 
-const open = (pinNumber, direction) => new Promise((resolve, reject) => {
+export const open = (pinNumber, direction) => new Promise((resolve, reject) => {
   const path = `${SYS_PATH}${pinNumber}/direction`
   writeFile(path, direction, (err, res) => {
     if (err) reject(err)
@@ -10,7 +10,7 @@ const open = (pinNumber, direction) => new Promise((resolve, reject) => {
   })
 })
 
-const write = (pinNumber, value) => new Promise((resolve, reject) => {
+export const write = (pinNumber, value) => new Promise((resolve, reject) => {
   const path = `${SYS_PATH}${pinNumber}/value`
   value = !value
     ? '0'
@@ -21,8 +21,3 @@ const write = (pinNumber, value) => new Promise((resolve, reject) => {
     resolve(res)
   })
 })
-
-export default {
-  open,
-  write
-}
