@@ -1,6 +1,6 @@
 import { writeFile } from 'fs'
 
-const SYS_PATH = '~../../sys/class/gpio'
+const SYS_PATH = '/sys/class/gpio/gpio'
 
 export const open = (pinNumber, direction) => new Promise((resolve, reject) => {
   const path = `${SYS_PATH}${pinNumber}/direction`
