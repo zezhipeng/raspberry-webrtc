@@ -60,25 +60,16 @@ async function start () {
     let pin = ctx.query.pin
     let clk = ctx.query.clk
 
-    pin = Number(pin)
-    clk = Number(clk)
+    // 周期 20ms，脉宽0.5-2.5ms
+    await open(pin, 'out')
 
-    // console.log(pin, clk)
-    // try {
-    //   let g = gpio.export(pin, {
-    //     direction: 'out',
-    //     ready () {
-    //       setInterval(() => {
-    //         g.set()
-    //         setTimeout(() => {
-    //           g.reset()
-    //         }, 0.5 / clk)
-    //       }, 1 / clk)
-    //     }
-    //   })
-    // } catch (e) {
-    //   console.log(e)
-    // }
+    setInterval(async () => {
+      await write(pin, '1')
+
+      setTimeout(async () => {
+        await write(pin, '0')
+      }, clk)
+    }, 20)
 
     ctx.body = 'done'
   })
