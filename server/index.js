@@ -45,8 +45,9 @@ async function start () {
 
     R.forEach(async item => {
       try {
-        await open(Number(item.id), item.direction)
-        await write(Number(item.id), item.value)
+        console.log(item)
+        await open(item.id, item.direction)
+        await write(item.id, item.value)
       } catch (e) {
         ctx.throw(500, e)
       }
