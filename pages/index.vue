@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 section.container
   h1.title
     | Universal Vue.js Application Framework

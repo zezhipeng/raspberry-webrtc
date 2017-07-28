@@ -1,28 +1,27 @@
-<template>
-  <section class="container">
-    <img src="../assets/img/logo.png" alt="Nuxt.js Logo" class="logo" />
-    <h1 class="title">
-      This page is loaded from the {{ name }}
-    </h1>
-    <h2 class="info" v-if="name === 'client'">
-      Please refresh the page
-    </h2>
-    <nuxt-link class="button" to="/">
-      Home page
-    </nuxt-link>
-  </section>
+<template lang="pug">
+.container
+  button(@click='left') left
+  button(@click='right') right
 </template>
 <script>
+import axios from 'axios'
+import cl
+
 export default {
-  asyncData ({ req }) {
-    return {
-      name: req ? 'server' : 'client'
-    }
+  data () {
+    return ({
+      pw: 0
+    })
   },
-  head () {
-    return {
-      title: `About Page (${this.name}-side)`
-    }
+  methods: {
+    async getPw () {
+      let {data} = await axios.get('/pw')
+      console.log(data)
+      this.pw = data
+    },
+    async left (
+
+    )
   }
 }
 </script>

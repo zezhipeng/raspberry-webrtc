@@ -8,6 +8,8 @@ import serve from 'koa-static'
 import R from 'ramda'
 import koaBody from 'koa-body'
 import { open, write } from './gpio'
+import { exec } from 'shelljs'
+import { Gpio } from 'pigpio'
 
 const app = new Koa()
 const router = new Router()
@@ -17,6 +19,18 @@ const host = env === 'production'
   : '127.0.0.1'
 
 const port = process.env.PORT || 3000
+const sleep = time => new Promise(resolve => setTimeout(resolve, time))
+const servo = new Gpio(17, {mode: Gpio.OUTPUT})
+
+let pw = 500
+let increment = 50
+
+let init = setInterval(() => {
+  if (pw >= 2500) return clearInterval(init)
+  servo.servoWrite(pw)
+  pw += increment
+}, 500)
+init()
 
 async function start () {
   let config = require('../nuxt.config.js')
@@ -34,6 +48,11 @@ async function start () {
 
   app.use(serve(resolve(__dirname, '../public')))
   app.use(koaBody())
+
+  router.get('pw', async ctx => {
+    let servo = servo.getServoPulseWidth()
+    ctx.body = servo
+  })
 
   router.get('/test', async ctx => {
     ctx.body = 'test'
@@ -54,6 +73,12 @@ async function start () {
     })(pins)
 
     ctx.body = 'done'
+  })
+
+  router.get('/py', async ctx => {
+    exec('python ../todo.py', (code, stdout, stderr) => {
+      console.log(code)
+    })
   })
 
   router.get('/pwm', async ctx => {
@@ -99,6 +124,13 @@ async function start () {
       stream.on('data', data => {
         io.emit('stream', data)
       })
+    })
+
+    socket.on('x', async _pw => {
+      pw = servo.getServoPulseWidth()
+      servo.servoWrite(pw)
+      sleep(60)
+      servo.servoWrite(_pw)
     })
   })
   console.log(`Server listening on ${host}:${port}`)
