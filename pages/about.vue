@@ -4,8 +4,8 @@
   button(@click='right') right
 </template>
 <script>
+
 import axios from 'axios'
-import cl
 
 export default {
   data () {
